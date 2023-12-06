@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+//Das TUD-Logo und die Uhr sind als Asset aufgerufen und muss dem entsprechend in der pubspec.yaml Datei angegeben werden
+// assets:
+//  - lib/images/
+
 void main() {
   runApp(const UniTagApp());
 }
@@ -28,7 +32,6 @@ class HomePage extends StatelessWidget {
   static const TextStyle heading =
       TextStyle(fontWeight: FontWeight.bold, color: tudBlue, fontSize: 20);
   static const TextStyle normal = TextStyle(color: tudBlue, fontSize: 16);
-  static const TextStyle invert = TextStyle(color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +65,16 @@ class HomePage extends StatelessWidget {
         backgroundColor: tudBlue,
         foregroundColor: Colors.white,
         title: Center(child: Text("Mein UNI-Tag")),
-        leading: Icon(Icons.abc),
+        leading: Padding(
+          padding: const EdgeInsets.all(7),
+          child: Image.asset("lib/images/tudlogo.png"),
+        ),
         actions: [
           IconButton(
               onPressed: () {
                 //open drawer
               },
-              icon: Icon(Icons.menu)),
+              icon: Icon(Icons.menu, size: MediaQuery.of(context).size.height * 0.05)),
         ],
       ),
       body: Center(
@@ -95,7 +101,7 @@ class HomePage extends StatelessWidget {
                   Container(
                     child: Column(
                       children: [
-                        Icon(Icons.circle_sharp),
+                        Image.asset("lib/images/clock.png", height: MediaQuery.of(context).size.height * 0.2),
                         Text(
                           getFormatedDate(),
                           style: normal,
@@ -104,11 +110,11 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                     color: bg,
-                  ), //Uhr
+                  ),
                 ],
               ),
               SizedBox(
-                height: (66 + 15) * 4,
+                height: (66 + 30) * 4,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +126,7 @@ class HomePage extends StatelessWidget {
                     ),
                     SizedBox(
                       //Erstes der vier Elemente unten
-                      height: 66,
+                      height: 68,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -128,57 +134,60 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.21,
+                                width: MediaQuery.of(context).size.width * 0.23,
                                 height: 32,
-                                color: tudBlue,
+                                color: (DateTime.now().weekday == DateTime.monday? tudBlue : bg),
                                 child: Row(children: [
                                   Icon(
-                                    Icons.cancel_presentation,
-                                    color: Colors.white,
+                                    Icons.class_,
+                                    color:  (DateTime.now().weekday == DateTime.thursday? Colors.white : tudBlue),
                                   ),
                                   Text("Mo 2. DS\nAPB EOO1",
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 11))
+                                          color: (DateTime.now().weekday == DateTime.monday? Colors.white : tudBlue), fontSize: 11))
                                 ]),
                               ),
                               Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.21,
+                                      MediaQuery.of(context).size.width * 0.23,
                                   height: 32,
-                                  color: bg,
+                                  color: (DateTime.now().weekday == DateTime.thursday? tudBlue : bg),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.edit),
+                                      Icon(Icons.edit, color: (DateTime.now().weekday == DateTime.thursday? Colors.white : tudBlue)),
                                       Text("Do 09:20",
-                                          textAlign: TextAlign.right)
+                                          textAlign: TextAlign.right, style: TextStyle(fontSize: 16, color: (DateTime.now().weekday == DateTime.thursday? Colors.white : tudBlue),))
                                     ],
                                   )),
                             ],
                           ),
                           Container(
                             color: bg,
-                            width: MediaQuery.of(context).size.width * 0.685,
-                            height: 66,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Algorithmen und\nDatenstrukturen",
-                                    style: normal,
-                                  ),
-                                  GestureDetector(
-                                    child: Icon(Icons.navigate_next),
-                                  )
-                                ]),
+                            width: MediaQuery.of(context).size.width * 0.665,
+                            height: 68,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Algorithmen und\nDatenstrukturen",
+                                      style: normal,
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.navigate_next), onPressed: (){}
+                                    )
+                                  ]),
+                            ),
                           )
                         ],
                       ),
                     ),
                     SizedBox(
                       //Zweites der vier Elemente unten
-                      height: 66,
+                      height: 68,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -186,29 +195,30 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.21,
+                                width: MediaQuery.of(context).size.width * 0.23,
                                 height: 32,
-                                color: tudBlue,
+                                color: (DateTime.now().weekday == DateTime.monday ? tudBlue : bg),
                                 child: Row(children: [
                                   Icon(
-                                    Icons.cancel_presentation,
-                                    color: Colors.white,
+                                    Icons.class_,
+                                    color: (DateTime.now().weekday == DateTime.monday ? Colors.white : tudBlue),
                                   ),
                                   Text("Mo 15:30",
-                                      style: invert, textAlign: TextAlign.right)
+                                      style: TextStyle(fontSize: 16, color: (DateTime.now().weekday == DateTime.monday ? Colors.white : tudBlue)), textAlign: TextAlign.right)
                                 ]),
                               ),
                               Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.21,
+                                      MediaQuery.of(context).size.width * 0.23,
                                   height: 32,
-                                  color: bg,
+                                  color: (DateTime.now().weekday == DateTime.wednesday ? tudBlue : bg),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.edit),
+                                      Icon(Icons.edit, color: (DateTime.now().weekday == DateTime.wednesday ? Colors.white : tudBlue)),
                                       Text(
                                         "Mi 10:50",
                                         textAlign: TextAlign.right,
+                                        style: TextStyle(fontSize: 16, color: (DateTime.now().weekday == DateTime.wednesday ? Colors.white : tudBlue)),
                                       )
                                     ],
                                   )),
@@ -216,27 +226,30 @@ class HomePage extends StatelessWidget {
                           ),
                           Container(
                             color: bg,
-                            width: MediaQuery.of(context).size.width * 0.685,
-                            height: 66,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Einführung in die \n Mathematik für Informatik",
-                                    style: normal,
-                                  ),
-                                  GestureDetector(
-                                    child: Icon(Icons.navigate_next),
-                                  )
-                                ]),
+                            width: MediaQuery.of(context).size.width * 0.665,
+                            height: 68,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Einführung in die \n Mathematik für Informatik",
+                                      style: normal,
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.navigate_next), onPressed: (){}
+                                    )
+                                  ]),
+                            ),
                           )
                         ],
                       ),
                     ),
                     SizedBox(
                       //Drittes der vier Elemente unten
-                      height: 66,
+                      height: 68,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -244,57 +257,62 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.21,
+                                width: MediaQuery.of(context).size.width * 0.23,
                                 height: 32,
-                                color: bg,
+                                color: (DateTime.now().weekday == DateTime.tuesday ? tudBlue : bg),
                                 child: Row(children: [
                                   Icon(
-                                    Icons.cancel_presentation,
-                                    color: tudBlue,
+                                    Icons.class_,
+                                    color: (DateTime.now().weekday == DateTime.tuesday ? Colors.white : tudBlue),
                                   ),
                                   Text("Di 7:20",
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
-                                          color: tudBlue, fontSize: 11))
+                                          fontSize: 16, 
+                                          color: (DateTime.now().weekday == DateTime.tuesday ? Colors.white : tudBlue)))
                                 ]),
                               ),
                               Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.21,
+                                      MediaQuery.of(context).size.width * 0.23,
                                   height: 32,
-                                  color: bg,
+                                  color: (DateTime.now().weekday == DateTime.tuesday ? tudBlue : bg),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.edit),
+                                      Icon(Icons.edit, color: (DateTime.now().weekday == DateTime.tuesday ? Colors.white : tudBlue)),
                                       Text("Di 09:20",
-                                          textAlign: TextAlign.right)
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(fontSize: 16, color: (DateTime.now().weekday == DateTime.tuesday ? Colors.white : tudBlue)),)
                                     ],
                                   )),
                             ],
                           ),
                           Container(
                             color: bg,
-                            width: MediaQuery.of(context).size.width * 0.685,
-                            height: 66,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Einführungspraktikum\nRoboLab",
-                                    style: normal,
-                                  ),
-                                  GestureDetector(
-                                    child: Icon(Icons.navigate_next),
-                                  )
-                                ]),
+                            width: MediaQuery.of(context).size.width * 0.665,
+                            height: 68,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Einführungspraktikum\nRoboLab",
+                                      style: normal,
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.navigate_next), onPressed: (){}
+                                    )
+                                  ]),
+                            ),
                           )
                         ],
                       ),
                     ),
                     SizedBox(
                       //Viertes der vier Elemente unten
-                      height: 66,
+                      height: 68,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -302,32 +320,33 @@ class HomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.21,
+                                width: MediaQuery.of(context).size.width * 0.23,
                                 height: 32,
-                                color: bg,
+                                color: (DateTime.now().weekday == DateTime.wednesday ? tudBlue : bg),
                                 child: Row(children: [
                                   Icon(
-                                    Icons.cancel_presentation,
-                                    color: tudBlue,
+                                    Icons.class_,
+                                    color: (DateTime.now().weekday == DateTime.wednesday ? Colors.white : tudBlue),
                                   ),
                                   Text("Mi 12:50",
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
-                                          color: tudBlue, fontSize: 11))
+                                          fontSize: 16, 
+                                          color: (DateTime.now().weekday == DateTime.wednesday ? Colors.white : tudBlue)))
                                 ]),
                               ),
                               Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.21,
+                                      MediaQuery.of(context).size.width * 0.23,
                                   height: 32,
-                                  color: tudBlue,
+                                  color: (DateTime.now().weekday == DateTime.monday ? tudBlue : bg),
                                   child: Row(
                                     children: [
-                                      Icon(Icons.edit, color: Colors.white),
+                                      Icon(Icons.edit, color: (DateTime.now().weekday == DateTime.monday ? Colors.white : tudBlue)),
                                       Text(
                                         "Mo 09:20",
                                         textAlign: TextAlign.right,
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(fontSize: 16, color: (DateTime.now().weekday == DateTime.monday ? Colors.white : tudBlue)),
                                       )
                                     ],
                                   )),
@@ -335,20 +354,23 @@ class HomePage extends StatelessWidget {
                           ),
                           Container(
                             color: bg,
-                            width: MediaQuery.of(context).size.width * 0.685,
-                            height: 66,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Einführung in die \n Mathematik für Informatik",
-                                    style: normal,
-                                  ),
-                                  GestureDetector(
-                                    child: Icon(Icons.navigate_next),
-                                  )
-                                ]),
+                            width: MediaQuery.of(context).size.width * 0.665,
+                            height: 68,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Einführung in die \n Mathematik für Informatik",
+                                      style: normal,
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.navigate_next), onPressed: (){}
+                                    )
+                                  ]),
+                            ),
                           )
                         ],
                       ),
